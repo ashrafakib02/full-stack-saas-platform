@@ -15,7 +15,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok", message: "Server running" });
+  res.json({ status: "ok", message: "Server running ok" });
 });
 
 app.use("/api/v1/auth", authRoutes);
