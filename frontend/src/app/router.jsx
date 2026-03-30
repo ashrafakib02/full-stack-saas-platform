@@ -5,19 +5,14 @@ import AppShell from "../components/layout/AppShell";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
+import WorkspacesPage from "../pages/WorkspacesPage";
 
 export const router = createBrowserRouter([
   {
     element: <PublicRoute />,
     children: [
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
     ],
   },
   {
@@ -26,10 +21,8 @@ export const router = createBrowserRouter([
       {
         element: <AppShell />,
         children: [
-          {
-            path: "/",
-            element: <DashboardPage />,
-          },
+          { path: "/", element: <DashboardPage /> },
+          { path: "/workspaces", element: <WorkspacesPage /> },
         ],
       },
     ],

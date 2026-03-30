@@ -1,10 +1,25 @@
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Card from "../components/ui/Card";
+
 export default function DashboardPage() {
+  const activeWorkspaceId = useSelector(
+    (state) => state.workspace.activeWorkspaceId
+  );
+
+  if (!activeWorkspaceId) {
+    return <Navigate to="/workspaces" replace />;
+  }
+
   return (
-    <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="text-2xl font-semibold">Dashboard</h2>
+    <Card>
+      <h2 className="text-2xl font-semibold text-slate-900">Dashboard</h2>
       <p className="mt-2 text-sm text-slate-600">
-        Day 17: dashboard widgets go here
+        Active workspace: {activeWorkspaceId}
       </p>
-    </div>
+      <p className="mt-4 text-sm text-slate-500">
+        Day 17: dashboard analytics widgets go here.
+      </p>
+    </Card>
   );
 }
