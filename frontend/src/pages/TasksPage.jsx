@@ -13,12 +13,13 @@ import TaskForm from "../features/task/components/TaskForm";
 import TaskFilters from "../features/task/components/TaskFilters";
 import TaskCard from "../features/task/components/TaskCard";
 import TaskPagination from "../features/task/components/TaskPagination";
+import { useConfirmAction } from "../hooks/useConfirmAction";
 
 export default function TasksPage() {
   const activeWorkspaceId = useSelector(
-    (state) => state.workspace.activeWorkspaceId
+    (state) => state.workspace.activeWorkspaceId,
   );
-
+  const { confirmAction } = useConfirmAction();
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   const [filters, setFilters] = useState({
@@ -41,22 +42,17 @@ export default function TasksPage() {
       sortBy: filters.sortBy,
       sortOrder: filters.sortOrder,
     }),
-    [filters]
+    [filters],
   );
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    error,
-  } = useGetTasksQuery(
+  const { data, isLoading, isFetching, error } = useGetTasksQuery(
     {
       workspaceId: activeWorkspaceId,
       params: taskQueryParams,
     },
     {
       skip: !activeWorkspaceId,
-    }
+    },
   );
 
   const { data: projectsResponse } = useGetProjectsQuery(activeWorkspaceId, {
@@ -106,8 +102,8 @@ export default function TasksPage() {
   };
 
   const handleDeleteTask = async (taskId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this task?"
+    const confirmed = confirmAction(
+      "Are you sure you want to delete this task?",
     );
 
     if (!confirmed) return;

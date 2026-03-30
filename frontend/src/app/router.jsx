@@ -8,6 +8,7 @@ import DashboardPage from "../pages/DashboardPage";
 import WorkspacesPage from "../pages/WorkspacesPage";
 import ProjectsPage from "../pages/ProjectsPage";
 import TasksPage from "../pages/TasksPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);

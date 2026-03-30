@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useRegisterMutation } from "../features/auth/authApi";
 import { setCredentials } from "../features/auth/authSlice";
 import Card from "../components/ui/Card";
@@ -29,7 +30,12 @@ export default function RegisterPage() {
     useRegisterMutation();
 
   const onSubmit = async (values) => {
-    await registerUser(values);
+    try {
+      await registerUser(values).unwrap();
+    } catch (err) {
+      // error toast here
+      toast.error(err?.data?.message || "Registration failed");
+    }
   };
 
   useEffect(() => {
@@ -40,6 +46,8 @@ export default function RegisterPage() {
           user: data.data.user,
         })
       );
+
+      toast.success("Account created successfully");
       navigate("/", { replace: true });
     }
   }, [isSuccess, data, dispatch, navigate]);
@@ -58,6 +66,7 @@ export default function RegisterPage() {
           <FormField label="Name" error={errors.name?.message}>
             <Input
               type="text"
+              autoComplete="name"
               placeholder="Enter your name"
               {...register("name", {
                 required: "Name is required",
@@ -72,6 +81,7 @@ export default function RegisterPage() {
           <FormField label="Email" error={errors.email?.message}>
             <Input
               type="email"
+              autoComplete="email"
               placeholder="Enter your email"
               {...register("email", {
                 required: "Email is required",
@@ -86,6 +96,7 @@ export default function RegisterPage() {
           <FormField label="Password" error={errors.password?.message}>
             <Input
               type="password"
+              autoComplete="new-password"
               placeholder="Create a password"
               {...register("password", {
                 required: "Password is required",

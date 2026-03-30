@@ -3,13 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutApiMutation } from "../../features/auth/authApi";
 import { logout } from "../../features/auth/authSlice";
 import Button from "../ui/Button";
+import { useGetWorkspacesQuery } from "../../features/workspace/workspaceApi";
 
 export default function AppShell() {
   const dispatch = useDispatch();
   const [logoutApi, { isLoading }] = useLogoutApiMutation();
 
   const user = useSelector((state) => state.auth.user);
+  const activeWorkspaceId = useSelector(
+    (state) => state.workspace.activeWorkspaceId,
+  );
+  const { data } = useGetWorkspacesQuery();
+  const workspaces = data?.data || [];
 
+const activeWorkspace = workspaces.find(
+  (item) => item.workspace.id === activeWorkspaceId
+);
+
+const activeWorkspaceName = activeWorkspace?.workspace?.name;
   const handleLogout = async () => {
     try {
       await logoutApi().unwrap();
@@ -36,8 +47,10 @@ export default function AppShell() {
             <p className="text-sm text-slate-600">
               {user?.email || "Authenticated user"}
             </p>
+            <p className="text-xs text-slate-500">
+              Active workspace: <strong>{activeWorkspaceName || "None selected"}</strong>
+            </p>
           </div>
-
           <div className="flex items-center gap-2">
             <NavLink to="/" className={navClass}>
               Dashboard

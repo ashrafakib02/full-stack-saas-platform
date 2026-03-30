@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useLoginMutation } from "../features/auth/authApi";
 import { setCredentials } from "../features/auth/authSlice";
 import Card from "../components/ui/Card";
@@ -28,7 +29,12 @@ export default function LoginPage() {
     useLoginMutation();
 
   const onSubmit = async (values) => {
-    await loginUser(values);
+    try {
+      await loginUser(values).unwrap();
+    } catch (err) {
+      // error toast here
+      toast.error(err?.data?.message || "Login failed");
+    }
   };
 
   useEffect(() => {
@@ -39,6 +45,8 @@ export default function LoginPage() {
           user: data.data.user,
         })
       );
+
+      toast.success("Logged in successfully");
       navigate("/", { replace: true });
     }
   }, [isSuccess, data, dispatch, navigate]);
@@ -57,6 +65,7 @@ export default function LoginPage() {
           <FormField label="Email" error={errors.email?.message}>
             <Input
               type="email"
+              autoComplete="email"
               placeholder="Enter your email"
               {...register("email", {
                 required: "Email is required",
@@ -71,6 +80,7 @@ export default function LoginPage() {
           <FormField label="Password" error={errors.password?.message}>
             <Input
               type="password"
+              autoComplete="current-password"
               placeholder="Enter your password"
               {...register("password", {
                 required: "Password is required",

@@ -10,22 +10,22 @@ import {
   useGetProjectsQuery,
   useUpdateProjectMutation,
 } from "../features/project/projectApi";
+import toast from "react-hot-toast";
+import { useConfirmAction } from "../hooks/useConfirmAction";
 
 export default function ProjectsPage() {
   const activeWorkspaceId = useSelector(
-    (state) => state.workspace.activeWorkspaceId
+    (state) => state.workspace.activeWorkspaceId,
   );
-
+  const { confirmAction } = useConfirmAction();
   const [editingProjectId, setEditingProjectId] = useState(null);
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    error,
-  } = useGetProjectsQuery(activeWorkspaceId, {
-    skip: !activeWorkspaceId,
-  });
+  const { data, isLoading, isFetching, error } = useGetProjectsQuery(
+    activeWorkspaceId,
+    {
+      skip: !activeWorkspaceId,
+    },
+  );
 
   const [createProject, { isLoading: isCreating, error: createError }] =
     useCreateProjectMutation();
@@ -33,8 +33,7 @@ export default function ProjectsPage() {
   const [updateProject, { isLoading: isUpdating, error: updateError }] =
     useUpdateProjectMutation();
 
-  const [deleteProject, { isLoading: isDeleting }] =
-    useDeleteProjectMutation();
+  const [deleteProject, { isLoading: isDeleting }] = useDeleteProjectMutation();
 
   if (!activeWorkspaceId) {
     return <Navigate to="/workspaces" replace />;
@@ -43,33 +42,48 @@ export default function ProjectsPage() {
   const projects = data?.data || [];
 
   const handleCreateProject = async (values) => {
-    await createProject({
-      workspaceId: activeWorkspaceId,
-      body: values,
-    }).unwrap();
+    try {
+      await createProject({
+        workspaceId: activeWorkspaceId,
+        body: values,
+      }).unwrap();
+      toast.success("Project created successfully");
+    } catch (error) {
+      toast.error(error?.data?.message || "Project creation failed");
+    }
   };
 
   const handleUpdateProject = async (projectId, values) => {
-    await updateProject({
-      workspaceId: activeWorkspaceId,
-      projectId,
-      body: values,
-    }).unwrap();
+    try {
+      await updateProject({
+        workspaceId: activeWorkspaceId,
+        projectId,
+        body: values,
+      }).unwrap();
+      toast.success("Project updated successfully");
+    } catch (err) {
+      toast.error(err?.data?.message || "Project update failed");
+    }
 
     setEditingProjectId(null);
   };
 
   const handleDeleteProject = async (projectId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this project?"
+    const confirmed = confirmAction(
+      "Are you sure you want to delete this Project?",
     );
 
     if (!confirmed) return;
 
-    await deleteProject({
-      workspaceId: activeWorkspaceId,
-      projectId,
-    }).unwrap();
+    try {
+      await deleteProject({
+        workspaceId: activeWorkspaceId,
+        projectId,
+      }).unwrap();
+      toast.success("Project deleted successfully");
+    } catch (error) {
+      toast.error(error?.data?.message || "Project deletion failed");
+    }
   };
 
   if (isLoading || isFetching) {
@@ -87,7 +101,8 @@ export default function ProjectsPage() {
           Failed to load projects
         </h2>
         <p className="mt-2 text-sm text-red-600">
-          {error?.data?.message || "Something went wrong while loading projects."}
+          {error?.data?.message ||
+            "Something went wrong while loading projects."}
         </p>
       </Card>
     );
