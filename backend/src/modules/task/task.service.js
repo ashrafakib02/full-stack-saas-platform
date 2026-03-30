@@ -1,5 +1,6 @@
 import prisma from "../../config/prisma.js";
 import { ApiError } from "../../utils/apiError.js";
+import {logger} from "../../config/logger.js";
 
 export const createTaskService = async (workspaceId, userId, data) => {
   const { title, description, projectId, assigneeId, dueDate, priority } = data;
@@ -34,7 +35,7 @@ export const createTaskService = async (workspaceId, userId, data) => {
       throw new ApiError(400, "Assignee must be a workspace member");
     }
   }
-
+logger.info(`Creating task in workspace ${workspaceId}`);
   const task = await prisma.task.create({
     data: {
       title,

@@ -3,21 +3,20 @@ import jwt from "jsonwebtoken";
 import prisma from "../../config/prisma.js";
 import { ApiError } from "../../utils/apiError.js";
 import { jwtConfig } from "../../config/jwt.js";
+import {logger} from "../../config/logger.js";
 
 const generateAccessToken = (user) => {
   return jwt.sign(
     { userId: user.id, email: user.email },
     jwtConfig.accessSecret,
-    { expiresIn: jwtConfig.accessExpiresIn }
+    { expiresIn: jwtConfig.accessExpiresIn },
   );
 };
 
 const generateRefreshToken = (user) => {
-  return jwt.sign(
-    { userId: user.id },
-    jwtConfig.refreshSecret,
-    { expiresIn: jwtConfig.refreshExpiresIn }
-  );
+  return jwt.sign({ userId: user.id }, jwtConfig.refreshSecret, {
+    expiresIn: jwtConfig.refreshExpiresIn,
+  });
 };
 
 export const registerUser = async ({ name, email, password }) => {
@@ -74,7 +73,7 @@ export const loginUser = async ({ email, password }) => {
 
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
-
+  logger.info(`User logged in successfully: ${user.email}`);
   return {
     user: {
       id: user.id,
@@ -104,7 +103,7 @@ export const refreshAccessToken = async (refreshToken) => {
     const newAccessToken = jwt.sign(
       { userId: user.id, email: user.email },
       jwtConfig.accessSecret,
-      { expiresIn: jwtConfig.accessExpiresIn }
+      { expiresIn: jwtConfig.accessExpiresIn },
     );
 
     return { accessToken: newAccessToken };

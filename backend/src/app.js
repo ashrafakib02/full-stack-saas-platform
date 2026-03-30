@@ -6,6 +6,7 @@ import authRoutes from "./modules/auth/auth.routes.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import userRoutes from "./modules/user/user.routes.js";
 import workspaceRoutes from "./modules/workspace/workspace.routes.js";
+import { logger } from "./config/logger.js";
 
 const app = express();
 
@@ -23,5 +24,12 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/workspaces", workspaceRoutes);
 
 app.use(errorMiddleware);
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (message) => logger.info(message.trim()),
+    },
+  })
+);
 
 export default app;
