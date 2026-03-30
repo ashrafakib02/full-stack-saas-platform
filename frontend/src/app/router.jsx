@@ -7,6 +7,7 @@ import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
 import WorkspacesPage from "../pages/WorkspacesPage";
 import ProjectsPage from "../pages/ProjectsPage";
+import TasksPage from "../pages/TasksPage";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
           { path: "/", element: <DashboardPage /> },
           { path: "/workspaces", element: <WorkspacesPage /> },
           { path: "/projects", element: <ProjectsPage /> },
+          { path: "/tasks", element: <TasksPage /> },
         ],
       },
     ],

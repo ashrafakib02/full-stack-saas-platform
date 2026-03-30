@@ -48,6 +48,9 @@ export default function AppShell() {
             <NavLink to="/projects" className={navClass}>
               Projects
             </NavLink>
+            <NavLink to="/tasks" className={navClass}>
+              Tasks
+            </NavLink>
             <Button onClick={handleLogout} disabled={isLoading}>
               {isLoading ? "Logging out..." : "Logout"}
             </Button>
