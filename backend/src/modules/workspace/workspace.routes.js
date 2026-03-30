@@ -8,6 +8,7 @@ import {
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { authorizeWorkspaceRole } from "../../middlewares/authorizeRole.middleware.js";
 import projectRoutes from "../project/project.routes.js";
+import taskRoutes from "../task/task.routes.js";
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.get(
 );
 
 router.use("/:workspaceId/projects", projectRoutes);
+router.use("/:workspaceId/tasks", taskRoutes);
 
 export default router;
