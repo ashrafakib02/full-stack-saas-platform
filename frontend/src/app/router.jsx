@@ -6,6 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DashboardPage from "../pages/DashboardPage";
 import WorkspacesPage from "../pages/WorkspacesPage";
+import ProjectsPage from "../pages/ProjectsPage";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "/", element: <DashboardPage /> },
           { path: "/workspaces", element: <WorkspacesPage /> },
+          { path: "/projects", element: <ProjectsPage /> },
         ],
       },
     ],

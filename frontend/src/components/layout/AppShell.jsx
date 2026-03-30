@@ -22,9 +22,7 @@ export default function AppShell() {
 
   const navClass = ({ isActive }) =>
     `rounded-lg px-3 py-2 text-sm font-medium transition ${
-      isActive
-        ? "bg-slate-900 text-white"
-        : "text-slate-700 hover:bg-slate-100"
+      isActive ? "bg-slate-900 text-white" : "text-slate-700 hover:bg-slate-100"
     }`;
 
   return (
@@ -46,6 +44,9 @@ export default function AppShell() {
             </NavLink>
             <NavLink to="/workspaces" className={navClass}>
               Workspaces
+            </NavLink>
+            <NavLink to="/projects" className={navClass}>
+              Projects
             </NavLink>
             <Button onClick={handleLogout} disabled={isLoading}>
               {isLoading ? "Logging out..." : "Logout"}
