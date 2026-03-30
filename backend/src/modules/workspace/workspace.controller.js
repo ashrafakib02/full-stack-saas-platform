@@ -5,64 +5,49 @@ import {
   getWorkspaceMembersService,
 } from "./workspace.service.js";
 import { apiResponse } from "../../utils/apiResponse.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
-export const createWorkspace = async (req, res, next) => {
-  try {
-    const workspace = await createWorkspaceService(req.user.id, req.body);
+export const createWorkspace = asyncHandler(async (req, res, next) => {
+  const workspace = await createWorkspaceService(req.user.id, req.body);
 
-    return apiResponse(res, {
-      statusCode: 201,
-      message: "Workspace created successfully",
-      data: workspace,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 201,
+    message: "Workspace created successfully",
+    data: workspace,
+  });
+});
 
-export const getUserWorkspaces = async (req, res, next) => {
-  try {
-    const workspaces = await getUserWorkspacesService(req.user.id);
+export const getUserWorkspaces = asyncHandler(async (req, res, next) => {
+  const workspaces = await getUserWorkspacesService(req.user.id);
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Workspaces fetched",
-      data: workspaces,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Workspaces fetched",
+    data: workspaces,
+  });
+});
 
-export const addWorkspaceMember = async (req, res, next) => {
-  try {
-    const { workspaceId } = req.params;
-    const { email, role } = req.body;
+export const addWorkspaceMember = asyncHandler(async (req, res, next) => {
+  const { workspaceId } = req.params;
+  const { email, role } = req.body;
 
-    const member = await addWorkspaceMemberService(workspaceId, email, role);
+  const member = await addWorkspaceMemberService(workspaceId, email, role);
 
-    return apiResponse(res, {
-      statusCode: 201,
-      message: "Member added successfully",
-      data: member,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 201,
+    message: "Member added successfully",
+    data: member,
+  });
+});
 
-export const getWorkspaceMembers = async (req, res, next) => {
-  try {
-    const { workspaceId } = req.params;
+export const getWorkspaceMembers = asyncHandler(async (req, res, next) => {
+  const { workspaceId } = req.params;
 
-    const members = await getWorkspaceMembersService(workspaceId);
+  const members = await getWorkspaceMembersService(workspaceId);
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Workspace members fetched successfully",
-      data: members,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Workspace members fetched successfully",
+    data: members,
+  });
+});

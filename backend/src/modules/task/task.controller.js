@@ -7,86 +7,64 @@ import {
 } from "./task.service.js";
 import { apiResponse } from "../../utils/apiResponse.js";
 
-export const createTask = async (req, res, next) => {
-  try {
-    const { workspaceId } = req.params;
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
-    const task = await createTaskService(
-      workspaceId,
-      req.user.id,
-      req.body
-    );
+export const createTask = asyncHandler(async (req, res) => {
+  const { workspaceId } = req.params;
 
-    return apiResponse(res, {
-      statusCode: 201,
-      message: "Task created successfully",
-      data: task,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  const task = await createTaskService(workspaceId, req.user.id, req.body);
 
-export const getTasks = async (req, res, next) => {
-  try {
-    const { workspaceId } = req.params;
+  return apiResponse(res, {
+    statusCode: 201,
+    message: "Task created successfully",
+    data: task,
+  });
+});
 
-    const result = await getTasksService(workspaceId, req.query);
+export const getTasks = asyncHandler(async (req, res, next) => {
+  const { workspaceId } = req.params;
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Tasks fetched",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  const result = await getTasksService(workspaceId, req.query);
 
-export const getTaskById = async (req, res, next) => {
-  try {
-    const { workspaceId, taskId } = req.params;
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Tasks fetched",
+    data: result,
+  });
+});
 
-    const task = await getTaskByIdService(workspaceId, taskId);
+export const getTaskById = asyncHandler(async (req, res, next) => {
+  const { workspaceId, taskId } = req.params;
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Task fetched",
-      data: task,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  const task = await getTaskByIdService(workspaceId, taskId);
 
-export const updateTask = async (req, res, next) => {
-  try {
-    const { workspaceId, taskId } = req.params;
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Task fetched",
+    data: task,
+  });
+});
 
-    const task = await updateTaskService(workspaceId, taskId, req.body);
+export const updateTask = asyncHandler(async (req, res, next) => {
+  const { workspaceId, taskId } = req.params;
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Task updated",
-      data: task,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  const task = await updateTaskService(workspaceId, taskId, req.body);
 
-export const deleteTask = async (req, res, next) => {
-  try {
-    const { workspaceId, taskId } = req.params;
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Task updated",
+    data: task,
+  });
+});
 
-    await deleteTaskService(workspaceId, taskId);
+export const deleteTask = asyncHandler(async (req, res, next) => {
+  const { workspaceId, taskId } = req.params;
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Task deleted",
-      data: null,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  await deleteTaskService(workspaceId, taskId);
+
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Task deleted",
+    data: null,
+  });
+});

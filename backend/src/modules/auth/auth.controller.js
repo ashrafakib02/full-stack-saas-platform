@@ -1,55 +1,40 @@
 import { registerUser, loginUser, refreshAccessToken } from "./auth.service.js";
 import { apiResponse } from "../../utils/apiResponse.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
-export const register = async (req, res, next) => {
-  try {
-    const result = await registerUser(req.body);
+export const register = asyncHandler(async (req, res, next) => {
+  const result = await registerUser(req.body);
 
-    return apiResponse(res, {
-      statusCode: 201,
-      message: "User registered successfully",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 201,
+    message: "User registered successfully",
+    data: result,
+  });
+});
+export const login = asyncHandler(async (req, res, next) => {
+  const result = await loginUser(req.body);
 
-export const login = async (req, res, next) => {
-  try {
-    const result = await loginUser(req.body);
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Login successful",
+    data: result,
+  });
+});
+export const refreshToken = asyncHandler(async (req, res, next) => {
+  const { refreshToken } = req.body;
 
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Login successful",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-export const refreshToken = async (req, res, next) => {
-  try {
-    const { refreshToken } = req.body;
+  const result = await refreshAccessToken(refreshToken);
 
-    const result = await refreshAccessToken(refreshToken);
-
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Token refreshed",
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-export const logout = async (req, res, next) => {
-  try {
-    return apiResponse(res, {
-      statusCode: 200,
-      message: "Logged out successfully",
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Token refreshed",
+    data: result,
+  });
+});
+export const logout = asyncHandler(async (req, res, next) => {
+  return apiResponse(res, {
+    statusCode: 200,
+    message: "Logged out successfully",
+    data: null,
+  });
+});
