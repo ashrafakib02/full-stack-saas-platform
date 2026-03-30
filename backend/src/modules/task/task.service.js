@@ -51,20 +51,59 @@ export const createTaskService = async (workspaceId, userId, data) => {
   return task;
 };
 
-export const getTasksService = async (workspaceId, filters = {}) => {
-  const { projectId, status, assigneeId } = filters;
+export const getTasksService = async (workspaceId, query) => {
+  const {
+    page = 1,
+    limit = 10,
+    status,
+    priority,
+    assigneeId,
+    projectId,
+    search,
+    sortBy = "createdAt",
+    sortOrder = "desc",
+  } = query;
 
-  return prisma.task.findMany({
-    where: {
-      workspaceId,
-      projectId: projectId || undefined,
-      status: status || undefined,
-      assigneeId: assigneeId || undefined,
+  const pageNumber = Number(page);
+  const limitNumber = Number(limit);
+
+  const skip = (pageNumber - 1) * limitNumber;
+
+  const where = {
+    workspaceId,
+    status: status || undefined,
+    priority: priority || undefined,
+    assigneeId: assigneeId || undefined,
+    projectId: projectId || undefined,
+    OR: search
+      ? [
+          { title: { contains: search, mode: "insensitive" } },
+          { description: { contains: search, mode: "insensitive" } },
+        ]
+      : undefined,
+  };
+
+  const [tasks, total] = await Promise.all([
+    prisma.task.findMany({
+      where,
+      skip,
+      take: limitNumber,
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+    }),
+    prisma.task.count({ where }),
+  ]);
+
+  return {
+    data: tasks,
+    meta: {
+      total,
+      page: pageNumber,
+      limit: limitNumber,
+      totalPages: Math.ceil(total / limitNumber),
     },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  };
 };
 
 export const getTaskByIdService = async (workspaceId, taskId) => {

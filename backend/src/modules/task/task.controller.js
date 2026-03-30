@@ -31,12 +31,12 @@ export const getTasks = async (req, res, next) => {
   try {
     const { workspaceId } = req.params;
 
-    const tasks = await getTasksService(workspaceId, req.query);
+    const result = await getTasksService(workspaceId, req.query);
 
     return apiResponse(res, {
       statusCode: 200,
       message: "Tasks fetched",
-      data: tasks,
+      data: result,
     });
   } catch (error) {
     next(error);
