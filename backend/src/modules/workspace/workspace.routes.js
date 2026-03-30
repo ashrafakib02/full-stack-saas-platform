@@ -7,6 +7,7 @@ import {
 } from "./workspace.controller.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { authorizeWorkspaceRole } from "../../middlewares/authorizeRole.middleware.js";
+import projectRoutes from "../project/project.routes.js";
 
 const router = Router();
 
@@ -26,5 +27,7 @@ router.get(
   authorizeWorkspaceRole("OWNER", "ADMIN", "MEMBER"),
   getWorkspaceMembers
 );
+
+router.use("/:workspaceId/projects", projectRoutes);
 
 export default router;
