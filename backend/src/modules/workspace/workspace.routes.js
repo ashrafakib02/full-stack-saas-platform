@@ -12,6 +12,7 @@ import { authorizeWorkspaceRole } from "../../middlewares/authorizeRole.middlewa
 import projectRoutes from "../project/project.routes.js";
 import taskRoutes from "../task/task.routes.js";
 import activityRoutes from "../activity/activity.routes.js";
+import dashboardRoutes from "../dashboard/dashboard.routes.js";
 
 const router = Router();
 
@@ -47,5 +48,6 @@ router.delete(
 router.use("/:workspaceId/projects", projectRoutes);
 router.use("/:workspaceId/tasks", taskRoutes);
 router.use("/:workspaceId/activities", activityRoutes);
+router.use("/:workspaceId/dashboard", dashboardRoutes);
 
 export default router;
