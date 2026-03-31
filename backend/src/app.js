@@ -8,32 +8,23 @@ import { logger } from "./config/logger.js";
 
 const app = express();
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
-  : [];
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // allow server-to-server, Postman, curl, mobile apps without origin
-      if (!origin) {
-        return callback(null, true);
-      }
+      // allow requests with no origin like Postman/curl
+      if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      logger.warn(`Blocked by CORS: ${origin}`);
-      return callback(null, false);
+      return callback(new Error(`CORS not allowed for origin: ${origin}`));
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.options("*", cors());
 
 app.use(express.json());
 app.use(helmet());
