@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         "/api": {
-          target: env.BACKEND_API_URL,
+          target: env.BACKEND_API_URL || "http://localhost:5000",
           changeOrigin: true,
         },
       },
