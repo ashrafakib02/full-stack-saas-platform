@@ -70,6 +70,5 @@ export const createTask = async (token, workspaceId, body = {}) => {
       dueDate: body.dueDate,
       projectId: body.projectId,
     });
-
   return res;
 };
