@@ -37,7 +37,7 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/saas_test_db
-      JWT_SECRET: testsecret
+      : HhO.vkt+<T.a?aqI{FrmQi?K]?1??a_;vnRkCi31=z$
       NODE_ENV: test
 
     steps:
