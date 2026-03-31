@@ -8,13 +8,25 @@ import { logger } from "./config/logger.js";
 
 const app = express();
 
-app.use(express.json());
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: (origin, callback) => {
+      // allow requests with no origin like Postman/curl
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS not allowed for origin: ${origin}`));
+    },
     credentials: true,
   })
 );
+
+app.use(express.json());
 app.use(helmet());
 app.use(
   morgan("combined", {
@@ -24,7 +36,6 @@ app.use(
   })
 );
 
-// everything goes under /api/v1
 app.use("/api/v1", apiRouter);
 
 app.use(errorMiddleware);
