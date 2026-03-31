@@ -37,7 +37,10 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/saas_test_db
-      JWT_SECRET: HhO.vkt+<T.a?aqI{FrmQi?K]?1??a_;vnRkCi31=z$
+      JWT_ACCESS_SECRET: HhO.vkt+<T.a?aqI{FrmQi?K]?1??a_;vnRkCi31=z$
+      JWT_REFRESH_SECRET: (MagVEBa:Mo5#zYOAo+*zr&tI4;#pdYo%{M0K{*IrFz
+      JWT_ACCESS_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
       NODE_ENV: test
 
     steps:
