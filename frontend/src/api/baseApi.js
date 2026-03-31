@@ -4,7 +4,7 @@ import { storage } from "../lib/storage";
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/v1",
+    baseUrl: `${import.meta.env.BACKEND_API_URL}/api/v1`,
     prepareHeaders: (headers) => {
       const token = storage.getAccessToken();
 
