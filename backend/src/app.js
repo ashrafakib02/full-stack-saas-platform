@@ -13,21 +13,18 @@ const allowedOrigins = process.env.CORS_ORIGIN?.split(",") || [];
 app.use(
   cors({
     origin: (origin, callback) => {
+      // allow requests with no origin like Postman/curl
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      return callback(null, false);
+      return callback(new Error(`CORS not allowed for origin: ${origin}`));
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-app.options("*", cors());
 
 app.use(express.json());
 app.use(helmet());
