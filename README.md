@@ -1,14 +1,23 @@
-﻿# 🚀 SaaS Task Management Platform
+# 🚀 Full-Stack SaaS Task Management Platform
 
-A production-ready full-stack SaaS application demonstrating **real-world scalable architecture, multi-tenancy, and modern full-stack engineering practices**
+> Production-ready multi-tenant SaaS application — built like a real product, not a tutorial.
+
+[![Live Demo](https://img.shields.io/badge/Live-Frontend-brightgreen?style=flat-square)](https://full-stack-saas-platform-k25wchnoc-ashrafakib02s-projects.vercel.app)
+[![API](https://img.shields.io/badge/Live-Backend%20API-blue?style=flat-square)](https://full-stack-saas-platform.onrender.com)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Prisma-316192?style=flat-square&logo=postgresql)](https://www.postgresql.org)
+[![React](https://img.shields.io/badge/React-Vite-61DAFB?style=flat-square&logo=react)](https://reactjs.org)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Live Links
 
-- 🔗 **Frontend:** [https://full-stack-saas-platform-k25wchnoc-ashrafakib02s-projects.vercel.app](https://full-stack-saas-platform.vercel.app)
-- 🔗 **Backend API:** https://full-stack-saas-platform.onrender.com
-- 🔗 **Health Check:** https://full-stack-saas-platform.onrender.com/api/v1/health
+| Service | URL |
+|---|---|
+| Frontend | [full-stack-saas-platform.vercel.app](https://full-stack-saas-platform-k25wchnoc-ashrafakib02s-projects.vercel.app) |
+| Backend API | [full-stack-saas-platform.onrender.com](https://full-stack-saas-platform.onrender.com) |
+| Health Check | [/api/v1/health](https://full-stack-saas-platform.onrender.com/api/v1/health) |
 
 ---
 
@@ -20,99 +29,81 @@ A production-ready full-stack SaaS application demonstrating **real-world scalab
 
 ## 📸 Screenshots
 
-### 🔐 Authentication Flow
+### Authentication
 ![Login](./screenshots/login.png)
 ![Register](./screenshots/reg.png)
 
-### 📊 Dashboard
+### Dashboard & Workspaces
 ![Dashboard](./screenshots/dash.png)
+![Workspace](./screenshots/work.png)
+![Project](./screenshots/proj.png)
+![Task](./screenshots/task.png)
 
-### ✅ Workspace Management
-![Workspace](/screenshots/work.png)
-![Project](/screenshots/proj.png)
-![Task](/screenshots/task.png)
+### Architecture & Schema
+![Architecture](./screenshots/arch.png)
+![DB Schema](./screenshots/schema.png)
+
 ---
 
 ## 🧠 What Problem This Solves
 
-This project solves **real SaaS-level problems:**
+Real SaaS products need more than CRUD — they need **workspace isolation, role-based access, audit logging, and analytics**. This project solves exactly that:
 
-- 🏢 Multi-tenant architecture (workspace isolation)
-- 👥 Role-based collaboration (Owner/Admin/Member)
-- 📊 Centralized analytics dashboard
-- 🔐 Secure authentication & authorization
-- ⚡ Efficient data querying (search, filter, pagination)
-- 📈 Activity tracking & audit logs
+- **Multi-tenancy** — workspace-level data isolation between organizations
+- **Role-based access control** — Owner / Admin / Member permissions
+- **Centralized analytics** — real-time task and project dashboards
+- **Audit trail** — full activity logging across workspaces
+- **Scalable querying** — search, filter, sort, and paginate at the API level
 
-👉 Built like a **real SaaS product (not tutorial-level)**
+Built across 3.5+ years of full-stack engineering experience on government, SaaS, and enterprise systems in Bangladesh, India, and Sri Lanka.
 
 ---
 
-## ⚡ Features (Quick Scan)
+## ⚡ Features
 
-- 🔐 JWT authentication & protected routes
-- 🏢 Workspace-based multi-tenancy
-- 👥 Role-based access control
-- 📁 Project management (workspace-scoped)
-- ✅ Task system with status, priority, due date
-- 🔎 Search, filtering, sorting, pagination
-- 📊 Dashboard analytics (tasks, projects, members)
-- 🧾 Activity logging (audit trail)
-- 🎯 Responsive UI + UX states
-- ⚡ RTK Query caching & data fetching
-- 🚀 Full-stack deployment (Render + Vercel)
+- JWT authentication with protected routes
+- Multi-tenant workspace architecture
+- Role-based access (Owner / Admin / Member)
+- Project management scoped to workspaces
+- Task system with status, priority, and due dates
+- Search, filtering, sorting, and pagination
+- Dashboard analytics (tasks, projects, members)
+- Activity logging (audit-ready)
+- RTK Query for caching and data fetching
+- Full-stack deployment with CI/CD
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Backend
-- Node.js
-- Express.js
-- PostgreSQL
-- Prisma ORM
-- JWT Authentication
-- REST API architecture
+| Tech | Purpose |
+|---|---|
+| Node.js + Express | API server |
+| PostgreSQL | Primary database |
+| Prisma ORM | Type-safe database access |
+| JWT | Authentication |
+| Winston | Structured logging |
 
 ### Frontend
-- React (Vite)
-- Redux Toolkit
-- RTK Query
-- React Hook Form
-- Tailwind CSS
+| Tech | Purpose |
+|---|---|
+| React (Vite) | UI framework |
+| Redux Toolkit + RTK Query | State + data fetching |
+| React Hook Form | Form handling |
+| Tailwind CSS | Styling |
 
-### Deployment
-- Backend: Render
-- Frontend: Vercel
-
----
-
-## 🧱 Architecture Highlights
-
-- Modular backend structure (feature-based)
-- Centralized error handling middleware
-- Structured logging (Winston)
-- RESTful API design
-- Scalable query handling (pagination, filtering, sorting)
-- RTK Query for efficient data fetching and caching
-- Environment-based configuration
-- CORS-secured API
-
----
-
-## 🧱 Architecture Diagram
-
-![Architecture](/screenshots/arch.png)
-
----
-
-## 🗄 Database Schema
-
-![DBSchema](/screenshots/schema.png)
+### DevOps
+| Tech | Purpose |
+|---|---|
+| Render | Backend hosting |
+| Vercel | Frontend hosting |
+| GitHub Actions | CI/CD pipeline |
 
 ---
 
 ## 🧱 System Architecture
+
 ```
 Client (React + RTK Query)
         ↓
@@ -124,147 +115,60 @@ Prisma ORM
         ↓
 PostgreSQL
 ```
-- ✔ Feature-based modular backend
-- ✔ Scalable frontend architecture
-- ✔ Clean separation of concerns
+
+- Feature-based modular backend (clean separation of concerns)
+- Centralized error handling middleware
+- Versioned REST API (`/api/v1/`)
+- Environment-based configuration
+- CORS-secured API
+
 ---
+
 ## 📁 Project Structure
 
-### Backend
 ```
-src/
-├── app.js # Express app setup
-├── server.js # Server entry point
-├── routes/ # API route definitions
-│ └── index.js
-├── modules/ # Feature-based modules
-│ ├── auth/ # Authentication logic
-│ ├── user/ # User management
-│ ├── workspace/ # Workspace features
-│ ├── project/ # Project management
-│ ├── task/ # Task operations
-│ ├── activity/ # Activity logs
-│ └── dashboard/ # Dashboard data
-├── middlewares/ # Custom middlewares
-├── config/ # App configuration
-└── utils/ # Helper functions
-```
-### Frontend
-```
-src/
-├── app/ # App-level setup (providers, routing, config)
-├── api/ # API calls & services
-├── features/ # Feature-based modules
-│ ├── auth/ # Authentication (login/register)
-│ ├── workspace/ # Workspace management
-│ ├── project/ # Project features
-│ ├── task/ # Task management
-│ └── dashboard/ # Dashboard UI & logic
-├── components/ # Reusable UI components
-│ ├── ui/ # Basic UI (buttons, inputs)
-│ ├── layout/ # Layout components (navbar, sidebar)
-│ └── form/ # Form components
-├── pages/ # Page-level components (routes)
-├── hooks/ # Custom React hooks
-└── lib/ # Utilities, helpers, configs
+├── backend/
+│   └── src/
+│       ├── modules/        # auth, workspace, project, task, dashboard
+│       ├── middlewares/
+│       ├── routes/
+│       ├── config/
+│       └── utils/
+│
+└── frontend/
+    └── src/
+        ├── features/       # auth, workspace, project, task, dashboard
+        ├── components/     # ui, layout, form
+        ├── pages/
+        ├── hooks/
+        └── lib/
 ```
 
 ---
-## API Endpoints (Key)
 
-### 🔐 Auth
-```
-| Method | Endpoint              | Description   |
-| ------ | --------------------- | ------------- |
-| POST   | /api/v1/auth/register | Register user |
-| POST   | /api/v1/auth/login    | Login user    |
+## 🔗 Key API Endpoints
 
-```
-
-## Workspace
-```
-| Method | Endpoint           | Description      |
-| ------ | ------------------ | ---------------- |
-| GET    | /api/v1/workspaces | Get workspaces   |
-| POST   | /api/v1/workspaces | Create workspace |
-
-```
-## 📁 Projects
-```
-| Method | Endpoint                 | Description    |
-| ------ | ------------------------ | -------------- |
-| GET    | /workspaces/:id/projects | Get projects   |
-| POST   | /workspaces/:id/projects | Create project |
-
-```
-## ✅ Tasks
-```
-| Method | Endpoint            | Description |
-| ------ | ------------------- | ----------- |
-| GET    | /projects/:id/tasks | Get tasks   |
-| POST   | /projects/:id/tasks | Create task |
-
-```
-## 📊 Dashboard
-```
-| Method | Endpoint                  | Description |
-| ------ | ------------------------- | ----------- |
-| GET    | /workspaces/:id/dashboard | Analytics   |
-
-```
----
-
-## 🛠 Tech Stack
-
-### Backend
-- Node.js, Express
-- PostgreSQL
-- Prisma ORM
-- JWT Authentication
-
-### Frontend
-- React (Vite)
-- Redux Toolkit
-- Tailwind CSS
-
-### DevOps
-- Render (Backend)
-- Vercel (Frontend)
-- Github Actions
-
----
-
-
-## 🚀 Why This is SaaS-Ready
-
-This project includes real-world SaaS architecture principles:
-
-- 🏢 Multi-tenant system design (workspace isolation)
-- 🔐 Secure authentication & authorization
-- ⚡ Scalable API design (modular + versioned)
-- 📊 Aggregated dashboard analytics
-- 🧾 Activity logging (audit-ready system)
-- 🚀 Production deployment (Render + Vercel)
-- 🔄 CI/CD pipeline integration
-- 🌍 Environment-based configuration
-
-👉 This is not just full-stack — it’s **production SaaS architecture**
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/v1/auth/register` | Register user |
+| POST | `/api/v1/auth/login` | Login |
+| GET | `/api/v1/workspaces` | List workspaces |
+| POST | `/api/v1/workspaces` | Create workspace |
+| GET | `/api/v1/workspaces/:id/projects` | List projects |
+| GET | `/api/v1/workspaces/:id/dashboard` | Analytics |
 
 ---
 
 ## 🚀 Run Locally
 
-### Backend
-
 ```bash
+# Backend
 cd backend
 npm install
+cp .env.example .env   # fill in your values
 npm run dev
-```
 
-### Frontend
-
-```bash
+# Frontend
 cd frontend
 npm install
 npm run dev
@@ -272,32 +176,12 @@ npm run dev
 
 ---
 
-
-## 📈 What This Project Demonstrates
-- Full-stack SaaS architecture
-- Multi-tenant system design
-- Advanced backend engineering
-- Scalable frontend architecture
-- Production deployment workflow
-- Real-world debugging & integration
-
----
-
 ## 👨‍💻 Author
-**Ashraful Islam**
-Full-stack Developer
-- 🌍 Open to Remote Opportunities
-- 💼 Backend-focused, scalable systems
 
-- LinkedIn: [ashraful-islam](https://linkedin.com/in/ashrafakib)
+**Ashraful Islam** — Full-Stack Developer  
+5+ years building production systems across Bangladesh, India, and Sri Lanka.  
+Reduced processing time by 40% and maintained 99.95% uptime SLAs on enterprise projects.
 
----
-
-## ⭐ Final Thought
-
-This is not just a full-stack project.
-
-It represents **how modern SaaS products are designed, built, and deployed in production.**
-
----
-
+- LinkedIn: [linkedin.com/in/ashrafakib](https://linkedin.com/in/ashrafakib)
+- Email: ashrafakib02@gmail.com
+- Open to remote backend/full-stack roles
